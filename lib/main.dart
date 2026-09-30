@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:shiwu_app/app/router.dart';
 import 'package:shiwu_app/app/theme.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
+import 'package:shiwu_app/providers/theme_provider.dart';
 import 'package:shiwu_app/services/meal_api_services.dart';
+import 'package:shiwu_app/widgets/theme_toggle.dart';
 
 import 'widgets/button.dart';
 
@@ -12,14 +14,18 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(darkModeProvider);
+
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: AppTheme(isDarkMode: true).getTheme(),
+      
+      theme: AppTheme(isDarkMode: isDarkMode).getTheme(),
+      
       routerConfig: router,
     );
   }
@@ -46,12 +52,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             PrimaryButton(
               text: 'Let\'s Begin',
               onPressed: () => context.go('/home'),
             ),
+            ThemeToggle()
           ],
         ),
       ),
