@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:shiwu_app/main.dart';
 import 'package:shiwu_app/screens/home_page.dart';
+import 'package:shiwu_app/screens/search_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const MyHomePage()),
     GoRoute(path: '/home', builder: (context, state) => const HomePage()),
+    GoRoute(path: '/search', builder: (context, state) => const SearchScreen()),
   ],
 );

@@ -22,10 +22,8 @@ class MyApp extends ConsumerWidget {
     final isDarkMode = ref.watch(darkModeProvider);
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
-      
+      title: 'Shiwu App',
       theme: AppTheme(isDarkMode: isDarkMode).getTheme(),
-      
       routerConfig: router,
     );
   }
@@ -59,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               text: 'Let\'s Begin',
               onPressed: () => context.go('/home'),
             ),
-            ThemeToggle()
+            ThemeToggle(),
           ],
         ),
       ),

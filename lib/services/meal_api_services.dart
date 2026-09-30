@@ -24,4 +24,22 @@ class MealService {
       throw Exception('Failed to obtain meal: $e');
     }
   }
+
+  Future<List<MealSummary>> searchMeals(String text) async {
+    final url = Uri.parse(
+      'https://www.themealdb.com/api/json/v1/1/search.php?s=$text',
+    );
+
+    final response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al obtener las recetas');
+    }
+
+    final Map<String, dynamic> json = jsonDecode(response.body);
+
+    final List<dynamic> meals = json['meals'] ?? [];
+
+    return meals.map((meal) => MealSummary.fromJson(meal)).toList();
+  }
 }

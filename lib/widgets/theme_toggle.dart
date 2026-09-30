@@ -8,7 +8,7 @@ class ThemeToggle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     final isDark = ref.watch(darkModeProvider);
 
     return Column(
@@ -22,9 +22,10 @@ class ThemeToggle extends ConsumerWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
-            width: 110.0,
-            height: 54.0,
-            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            //Circle container
+            width: 60.0,
+            height: 28.0,
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
             decoration: BoxDecoration(
               color: colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(30.0),
@@ -34,34 +35,38 @@ class ThemeToggle extends ConsumerWidget {
               curve: Curves.easeInOut,
               alignment: isDark ? Alignment.centerRight : Alignment.centerLeft,
               child: Container(
-                width: 42.0,
-                height: 42.0,
+                //CIRCLE SIZE
+                width: 24.0,
+                height: 24.0,
                 decoration: BoxDecoration(
                   color: colorScheme.primary,
                   shape: BoxShape.circle,
                 ),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                  transitionBuilder: (child, animation) =>
+                      ScaleTransition(scale: animation, child: child),
                   child: Icon(
-                    isDark ? Icons.dark_mode_rounded : Icons.wb_sunny_rounded,
+                    isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
                     key: ValueKey<bool>(isDark),
                     color: colorScheme.onPrimary,
-                    size: 24.0,
+                    //ICON SIZE
+                    size: 16.0,
                   ),
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 12.0),
+        //Space between text and toggle
+        const SizedBox(height: 2.0),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
           child: Text(
             isDark ? 'Dark Mode' : 'Light Mode',
             key: ValueKey<bool>(isDark),
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 14.0,
               fontWeight: FontWeight.w600,
               color: colorScheme.primary,
             ),

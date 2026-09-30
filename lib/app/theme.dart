@@ -9,6 +9,7 @@ class AppTheme {
 
   ThemeData getTheme() => ThemeData(
     useMaterial3: true,
+    fontFamily: 'Nunito',
     colorSchemeSeed: seedColor,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
   );
