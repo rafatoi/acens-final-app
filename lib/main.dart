@@ -6,7 +6,6 @@ import 'package:shiwu_app/app/theme.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
 import 'package:shiwu_app/providers/theme_provider.dart';
 import 'package:shiwu_app/services/meal_api_services.dart';
-import 'package:shiwu_app/widgets/theme_toggle.dart';
 
 import 'widgets/button.dart';
 
@@ -57,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               text: 'Let\'s Begin',
               onPressed: () => context.go('/home'),
             ),
-            ThemeToggle(),
+            //ThemeToggle(),
           ],
         ),
       ),

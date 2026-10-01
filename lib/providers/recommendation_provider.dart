@@ -2,14 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
 import 'package:shiwu_app/services/meal_api_services.dart';
 
-class MealNotifier extends AsyncNotifier<MealSummary> {
+class RecommendationNotifier extends AsyncNotifier<MealSummary> {
   final MealService _mealService = MealService();
 
   @override
   Future<MealSummary> build() async {
     return _mealService.getRandomMeal();
   }
-
+  
   Future<void> getRandomMeal() async {
     state = const AsyncLoading();
 
@@ -19,6 +19,7 @@ class MealNotifier extends AsyncNotifier<MealSummary> {
   }
 }
 
-final mealProvider = AsyncNotifierProvider<MealNotifier, MealSummary>(
-  MealNotifier.new,
+final recommendationProvider =
+    AsyncNotifierProvider<RecommendationNotifier, MealSummary>(
+  RecommendationNotifier.new,
 );

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shiwu_app/models/category.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
 
 class MealService {
@@ -42,4 +43,25 @@ class MealService {
 
     return meals.map((meal) => MealSummary.fromJson(meal)).toList();
   }
+
+  Future<List<Category>> getCategories() async {
+    final response = await http.get(
+      Uri.parse(
+        'https://www.themealdb.com/api/json/v1/1/categories.php',
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load categories');
+    }
+
+    final data = jsonDecode(response.body);
+
+    final List categories = data['categories'];
+
+    return categories
+        .map((category) => Category.fromMap(category))
+        .toList();
+  }
+
 }

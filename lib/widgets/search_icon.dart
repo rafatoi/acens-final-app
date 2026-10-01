@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchIconButton extends StatelessWidget {
-  final VoidCallback onPressed; // El callback que se ejecutará siempre
+  final VoidCallback onPressed;
 
   const SearchIconButton({super.key, required this.onPressed});
 

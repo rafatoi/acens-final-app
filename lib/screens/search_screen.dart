@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:shiwu_app/models/meal_summary.dart';
 
 import '../providers/searching_provider.dart';
+import '../widgets/search_card.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -16,27 +17,32 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final searchState = ref.watch(searchMealProvider);
+    final searchState = ref.watch(searchingProvider);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            ref.read(searchMealProvider.notifier).clearSearch();
-            context.pop();
+            ref.read(searchingProvider.notifier).clearSearch();
+            Navigator.pop(context);
           },
         ),
         title: TextField(
           controller: _searchController,
           decoration: InputDecoration(
-            hintText: 'Search any recipe...',
+            hintText: 'Search recipe...',
             border: InputBorder.none,
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
                       _searchController.clear();
+
+                      ref
+                          .read(searchingProvider.notifier)
+                          .clearSearch();
+
                       setState(() {});
                     },
                   )
@@ -50,11 +56,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               return;
             }
 
-            ref.read(searchMealProvider.notifier).searchMeals(value.trim());
+            ref
+                .read(searchingProvider.notifier)
+                .searchMeals(value.trim());
           },
         ),
       ),
-
       body: searchState.when(
         loading: () {
           return const Center(
@@ -63,27 +70,68 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               children: [
                 CircularProgressIndicator(),
                 SizedBox(height: 16),
-                Text('Loading...'),
+                Text('Searching recipes...'),
               ],
             ),
           );
         },
-
         data: (meals) {
+          if (!ref.read(searchingProvider.notifier).hasSearched) {
+            return const Center(
+              child: Text('Search for a recipe'),
+            );
+          }
+
           if (meals.isEmpty) {
-            return const Center(child: Text('No recipes found!'));
+            return const Center(
+              child: Text('No recipes found'),
+            );
           }
 
           return ListView.builder(
+            padding: const EdgeInsets.all(8),
             itemCount: meals.length,
             itemBuilder: (context, index) {
-              return ListTile(title: Text(meals[index].name));
+              final MealSummary meal = meals[index];
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: MealSearchCard(
+                  imageUrl: meal.imageUrl,
+                  mealName: meal.name,
+                ),
+              );
             },
           );
         },
-
         error: (error, stackTrace) {
-          return const Center(child: Text('Error'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'An error occurred while searching for recipes.',
+                  style: TextStyle(fontSize: 24),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    final text = _searchController.text.trim();
+
+                    if (text.isEmpty) {
+                      return;
+                    }
+
+                    ref
+                        .read(searchingProvider.notifier)
+                        .searchMeals(text);
+                  },
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );
