@@ -39,9 +39,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     onPressed: () {
                       _searchController.clear();
 
-                      ref
-                          .read(searchingProvider.notifier)
-                          .clearSearch();
+                      ref.read(searchingProvider.notifier).clearSearch();
 
                       setState(() {});
                     },
@@ -56,9 +54,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               return;
             }
 
-            ref
-                .read(searchingProvider.notifier)
-                .searchMeals(value.trim());
+            ref.read(searchingProvider.notifier).searchMeals(value.trim());
           },
         ),
       ),
@@ -77,15 +73,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         },
         data: (meals) {
           if (!ref.read(searchingProvider.notifier).hasSearched) {
-            return const Center(
-              child: Text('Search for a recipe'),
-            );
+            return const Center(child: Text('Search for a recipe'));
           }
 
           if (meals.isEmpty) {
-            return const Center(
-              child: Text('No recipes found'),
-            );
+            return const Center(child: Text('No recipes found'));
           }
 
           return ListView.builder(
@@ -95,10 +87,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               final MealSummary meal = meals[index];
 
               return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 2),
                 child: MealSearchCard(
                   imageUrl: meal.imageUrl,
                   mealName: meal.name,
+                  onTap: () => {},
                 ),
               );
             },
@@ -123,9 +116,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       return;
                     }
 
-                    ref
-                        .read(searchingProvider.notifier)
-                        .searchMeals(text);
+                    ref.read(searchingProvider.notifier).searchMeals(text);
                   },
                   child: const Text('Retry'),
                 ),

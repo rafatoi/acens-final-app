@@ -23,9 +23,7 @@ class CategoriesScreen extends ConsumerWidget {
       ),
       body: categoriesAsync.when(
         loading: () {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
 
         error: (error, stackTrace) {
@@ -33,9 +31,7 @@ class CategoriesScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'An error occurred while loading categories.',
-                ),
+                const Text('An error occurred while loading categories.'),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
@@ -52,8 +48,7 @@ class CategoriesScreen extends ConsumerWidget {
           return GridView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: categories.length,
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
@@ -65,7 +60,15 @@ class CategoriesScreen extends ConsumerWidget {
               return CategoryCard(
                 category: category.name,
                 imageUrl: category.imageUrl,
-                onTap: () => {}
+                onTap: () {
+                  //context.push('/categories/${category.name}');
+                  final route = '/categories/${category.name}';
+
+                  debugPrint('CATEGORY NAME: ${category.name}');
+                  debugPrint('ROUTE: $route');
+
+                  context.push(route);
+                },
               );
             },
           );

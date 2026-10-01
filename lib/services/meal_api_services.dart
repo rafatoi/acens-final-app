@@ -46,9 +46,7 @@ class MealService {
 
   Future<List<Category>> getCategories() async {
     final response = await http.get(
-      Uri.parse(
-        'https://www.themealdb.com/api/json/v1/1/categories.php',
-      ),
+      Uri.parse('https://www.themealdb.com/api/json/v1/1/categories.php'),
     );
 
     if (response.statusCode != 200) {
@@ -59,9 +57,30 @@ class MealService {
 
     final List categories = data['categories'];
 
-    return categories
-        .map((category) => Category.fromMap(category))
-        .toList();
+    return categories.map((category) => Category.fromMap(category)).toList();
   }
 
+  Future<List<MealSummary>> getMealsByCategory(String categoryName) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/filter.php?c=$categoryName'),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load recipes');
+    }
+
+    final rawData = jsonDecode(response.body);
+
+    final List meals = rawData['meals'];
+
+    return meals.map((meal) {
+      return MealSummary(
+        id: meal['idMeal'],
+        name: meal['strMeal'],
+        category: categoryName,
+        imageUrl: meal['strMealThumb'],
+        country: meal['strCountry'] ?? '',
+      );
+    }).toList();
+  }
 }
