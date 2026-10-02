@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shiwu_app/models/category.dart';
+import 'package:shiwu_app/models/meal_detail.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
 
 class MealService {
@@ -82,5 +83,59 @@ class MealService {
         country: meal['strCountry'] ?? '',
       );
     }).toList();
+  }
+
+  Future<MealDetail> getMealDetail(String mealId) async {
+    final uri = Uri.parse(
+      '$baseUrl/lookup.php?i=$mealId',
+    );
+
+    final response = await http.get(uri);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to load meal: ${response.statusCode}',
+      );
+    }
+
+    final Map<String, dynamic> data =
+        jsonDecode(response.body);
+
+    final meals = data['meals'];
+
+    if (meals == null || meals is! List || meals.isEmpty) {
+      throw Exception('Meal not found');
+    }
+
+    final mealJson = meals.first as Map<String, dynamic>;
+
+    return MealDetail.fromJson(mealJson);
+  }
+
+  Future<MealSummary> getMealSummaryById(String mealId) async {
+    final uri = Uri.parse(
+      '$baseUrl/lookup.php?i=$mealId',
+    );
+
+    final response = await http.get(uri);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to load meal: ${response.statusCode}',
+      );
+    }
+
+    final Map<String, dynamic> data =
+        jsonDecode(response.body);
+
+    final meals = data['meals'];
+
+    if (meals == null || meals is! List || meals.isEmpty) {
+      throw Exception('Meal not found');
+    }
+
+    final mealJson = meals.first as Map<String, dynamic>;
+
+    return MealSummary.fromJson(mealJson);
   }
 }

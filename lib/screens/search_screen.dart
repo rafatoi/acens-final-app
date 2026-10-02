@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shiwu_app/models/meal_summary.dart';
 
 import '../providers/searching_provider.dart';
@@ -91,7 +92,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 child: MealSearchCard(
                   imageUrl: meal.imageUrl,
                   mealName: meal.name,
-                  onTap: () => {},
+                  onTap: () => context.push('/details/${meal.id}'),
                 ),
               );
             },

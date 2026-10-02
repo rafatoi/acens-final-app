@@ -143,6 +143,7 @@ class HomeScreen extends ConsumerWidget {
                     country: meal.country,
                     onTap: () {
                       // Handle recipe card tap
+                      context.push('/details/${meal.id}');
                     },
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shiwu_app/widgets/button.dart';
 import 'package:shiwu_app/widgets/custom_appbar.dart';
 import 'package:shiwu_app/widgets/search_icon.dart';
 
@@ -50,13 +51,15 @@ class RandomScreen extends ConsumerWidget {
 
                   const SizedBox(height: 16),
 
-                  ElevatedButton(
+                  PrimaryButton(
+                    text: 'Retry',
+                    icon: Icons.refresh,
+                    fontSize: 18,
                     onPressed: () {
                       ref
                           .read(mealProvider.notifier)
                           .getRandomMeal();
                     },
-                    child: const Text('Retry'),
                   ),
                 ],
               );
@@ -68,7 +71,8 @@ class RandomScreen extends ConsumerWidget {
                 children: [
                   Padding(padding: EdgeInsets.only(bottom: 16),
                     child: Text(
-                      'Welcome to Shiwu App!',
+                      textAlign: TextAlign.center,
+                      'Surprise you with a random recipe!',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -81,25 +85,22 @@ class RandomScreen extends ConsumerWidget {
                     category: meal.category,
                     country: meal.country,
                     onTap: () {
+                      context.push('/details/${meal.id}');
                       // Handle recipe card tap
                     },
                   ),
 
                   const SizedBox(height: 24),
 
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                    ),
+                  PrimaryButton(
+                    text: 'Another Recipe',
+                    icon: Icons.redo,
+                    fontSize: 18,
                     onPressed: () {
                       ref
                           .read(mealProvider.notifier)
                           .getRandomMeal();
                     },
-                    child: const Text(
-                      'Another Recipe',
-                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
                   ),
                 ],
               );

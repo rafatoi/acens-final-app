@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Importa Riverpod
-import 'package:shiwu_app/providers/theme_provider.dart'; // Tu archivo del proveedor
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shiwu_app/providers/theme_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeToggle extends ConsumerWidget {
   const ThemeToggle({super.key});
@@ -15,9 +16,14 @@ class ThemeToggle extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
-          onTap: () {
-            // Riverpod
-            ref.read(darkModeProvider.notifier).state = !isDark;
+          onTap: () async {
+            final newValue = !isDark;
+
+            ref.read(darkModeProvider.notifier).state = newValue;
+
+            final preferences = await SharedPreferences.getInstance();
+
+            await preferences.setBool('isDarkMode', newValue);
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
