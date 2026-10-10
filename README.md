@@ -37,12 +37,6 @@ Incluye acceso a la búsqueda, una receta recomendada y la navegación principal
 
 Permite escribir el nombre de una receta para consultar resultados.
 
-![Búsqueda de recetas](docs/screenshots/03-Screenshot_2026-10-09-21-19-31-228_com.example.shiwu_app.jpg)
-
-### Búsqueda activa
-
-Muestra la pantalla de búsqueda con el teclado abierto, lista para introducir una consulta.
-
 ![Búsqueda activa](docs/screenshots/04-Screenshot_2026-10-09-21-19-41-095_com.example.shiwu_app.jpg)
 
 ### Categorías
