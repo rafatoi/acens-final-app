@@ -17,9 +17,73 @@ Esta aplicación se desarrolló como proyecto final práctico para la preparaci�
 - **Tema claro y oscuro:** permite cambiar la apariencia de la aplicación y recordar la preferencia localmente.
 - **Estados de interfaz:** contempla estados de carga, resultados, ausencia de coincidencias y errores.
 
+## Tecnologías y dependencias
+
+| Tecnología | Uso |
+|---|---|
+| [Flutter](https://flutter.dev/) | Desarrollo de la interfaz móvil |
+| [Dart](https://dart.dev/) | Lenguaje de programación |
+| [TheMealDB](https://www.themealdb.com/api.php) | API REST de recetas |
+| [`http`](https://pub.dev/packages/http) | Solicitudes HTTP a la API |
+| [`flutter_riverpod`](https://pub.dev/packages/flutter_riverpod) | Manejo de estado |
+| [`go_router`](https://pub.dev/packages/go_router) | Navegación entre pantallas |
+| [`shared_preferences`](https://pub.dev/packages/shared_preferences) | Persistencia local de preferencias y datos sencillos |
+| [`flutter_svg`](https://pub.dev/packages/flutter_svg) | Renderizado de recursos SVG |
+| [`url_launcher`](https://pub.dev/packages/url_launcher) | Apertura de enlaces externos |
+| [`provider`](https://pub.dev/packages/provider) | Dependencia incluida en el proyecto |
+
+La aplicación utiliza además la familia tipográfica **Nunito** y recursos gráficos almacenados en `assets/`.
+
+## Organización del proyecto
+
+El código de la aplicación está organizado dentro de `lib/` por áreas de responsabilidad:
+
+```text
+lib/
+├── app/
+├── models/
+├── providers/
+├── screens/
+├── services/
+├── widgets/
+└── main.dart
+
+assets/
+└── svg/
+```
+
+- **`app/`**: configuración principal de la aplicación y navegación.
+- **`models/`**: modelos para representar los datos recibidos de la API.
+- **`providers/`**: estado compartido y coordinación de operaciones de la aplicación.
+- **`screens/`**: pantallas principales.
+- **`services/`**: lógica de acceso a servicios y datos externos.
+- **`widgets/`**: componentes de interfaz reutilizables.
+- **`assets/`**: recursos de diseño utilizados por la aplicación.
+
+## Requisitos
+
+Necesitas tener instalado:
+
+- [Flutter SDK](https://docs.flutter.dev/get-started/install), con la versión de Dart compatible con el proyecto.
+- Un editor compatible, por ejemplo [Visual Studio Code](https://code.visualstudio.com/), con las extensiones de Flutter y Dart.
+- Un dispositivo Android/iOS o un emulador configurado.
+
+## Aprendizajes aplicados
+
+Este proyecto reúne prácticas de desarrollo móvil con Flutter:
+
+- Consumo de una API REST y procesamiento de respuestas JSON.
+- Conversión de datos externos a modelos de Dart.
+- Manejo de estados asíncronos y presentación de estados de carga, error y vacío.
+- Gestión de estado con Riverpod.
+- Navegación mediante GoRouter.
+- Persistencia local de preferencias del usuario.
+- Creación de widgets reutilizables y separación de responsabilidades.
+- Cálculo de ingredientes a partir de cantidades originales y porciones seleccionadas.
+
 ## Capturas de pantalla
 
-Las siguientes capturas muestran las principales pantallas y flujos de Shiwu. Para que las imágenes se visualicen en GitHub, conserva la carpeta `docs/screenshots/` junto a este archivo `README.md`.
+Las siguientes capturas muestran las principales pantallas y flujos de Shiwu.
 
 ### Pantalla de bienvenida
 
@@ -111,67 +175,3 @@ Muestra las tarjetas de categorías adaptadas al tema oscuro.
 
 ![Tema oscuro: categorías](docs/screenshots/16-Screenshot_2026-10-09-21-21-21-211_com.example.shiwu_app.jpg)
 
-
-## Tecnologías y dependencias
-
-| Tecnología | Uso |
-|---|---|
-| [Flutter](https://flutter.dev/) | Desarrollo de la interfaz móvil |
-| [Dart](https://dart.dev/) | Lenguaje de programación |
-| [TheMealDB](https://www.themealdb.com/api.php) | API REST de recetas |
-| [`http`](https://pub.dev/packages/http) | Solicitudes HTTP a la API |
-| [`flutter_riverpod`](https://pub.dev/packages/flutter_riverpod) | Manejo de estado |
-| [`go_router`](https://pub.dev/packages/go_router) | Navegación entre pantallas |
-| [`shared_preferences`](https://pub.dev/packages/shared_preferences) | Persistencia local de preferencias y datos sencillos |
-| [`flutter_svg`](https://pub.dev/packages/flutter_svg) | Renderizado de recursos SVG |
-| [`url_launcher`](https://pub.dev/packages/url_launcher) | Apertura de enlaces externos |
-| [`provider`](https://pub.dev/packages/provider) | Dependencia incluida en el proyecto |
-
-La aplicación utiliza además la familia tipográfica **Nunito** y recursos gráficos almacenados en `assets/`.
-
-## Organización del proyecto
-
-El código de la aplicación está organizado dentro de `lib/` por áreas de responsabilidad:
-
-```text
-lib/
-├── app/
-├── models/
-├── providers/
-├── screens/
-├── services/
-├── widgets/
-└── main.dart
-
-assets/
-└── svg/
-```
-
-- **`app/`**: configuración principal de la aplicación y navegación.
-- **`models/`**: modelos para representar los datos recibidos de la API.
-- **`providers/`**: estado compartido y coordinación de operaciones de la aplicación.
-- **`screens/`**: pantallas principales.
-- **`services/`**: lógica de acceso a servicios y datos externos.
-- **`widgets/`**: componentes de interfaz reutilizables.
-- **`assets/`**: recursos de diseño utilizados por la aplicación.
-
-## Requisitos
-
-Necesitas tener instalado:
-
-- [Flutter SDK](https://docs.flutter.dev/get-started/install), con la versión de Dart compatible con el proyecto.
-- Un editor compatible, por ejemplo [Visual Studio Code](https://code.visualstudio.com/), con las extensiones de Flutter y Dart.
-- Un dispositivo Android/iOS o un emulador configurado.
-
-## Aprendizajes aplicados
-
-Este proyecto reúne prácticas de desarrollo móvil con Flutter:
-
-- Consumo de una API REST y procesamiento de respuestas JSON.
-- Conversión de datos externos a modelos de Dart.
-- Manejo de estados asíncronos y presentación de estados de carga, error y vacío.
-- Gestión de estado con Riverpod.
-- Navegación mediante GoRouter.
-- Persistencia local de preferencias del usuario.
-- Creación de widgets reutilizables y separación de responsabilidades.
-- Cálculo de ingredientes a partir de cantidades originales y porciones seleccionadas.
